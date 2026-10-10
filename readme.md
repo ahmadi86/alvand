@@ -16,6 +16,9 @@ Requirements: Node.js 22.12+, Docker, PostgreSQL, and the latest Shopify CLI.
 Useful checks are `npm test`, `npm run typecheck`, `npm run lint`,
 `npm run build`, and `shopify app config validate --json`.
 
+For the complete Lightsail, PostgreSQL, SES, and Shopify production deployment
+procedure, see [AWS_DEPLOYMENT.md](AWS_DEPLOYMENT.md).
+
 Production requires `SHOPIFY_API_KEY`, `SHOPIFY_API_SECRET`,
 `SHOPIFY_APP_URL`, `DATABASE_URL`, `SMTP_URL`, `EMAIL_FROM`, and
 `SUPPORT_EMAIL`. Use `SHOPIFY_APP_INSTALL_URL` for the public listing/install
