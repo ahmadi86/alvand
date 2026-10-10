@@ -1,15 +1,47 @@
-import type { LoaderFunctionArgs } from "react-router";
-import { Link, useLoaderData } from "react-router";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
+import { Form, Link, useActionData, useLoaderData } from "react-router";
 
-import { consumeMagicLink } from "../services/magic-link.server";
+import {
+  consumeMagicLink,
+  inspectMagicLink,
+} from "../services/magic-link.server";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
-  return consumeMagicLink(url.searchParams.get("token") ?? "");
+  const token = url.searchParams.get("token") ?? "";
+  return { ...(await inspectMagicLink(token)), token };
+};
+
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const formData = await request.formData();
+  return consumeMagicLink(String(formData.get("token") ?? ""));
 };
 
 export default function VerifyMagicLink() {
-  const result = useLoaderData<typeof loader>();
+  const initialResult = useLoaderData<typeof loader>();
+  const submittedResult = useActionData<typeof action>();
+
+  if (!submittedResult && initialResult.ok) {
+    return (
+      <main
+        style={{
+          fontFamily: "Inter, sans-serif",
+          maxWidth: 640,
+          margin: "64px auto",
+          padding: 24,
+        }}
+      >
+        <h1>Confirm sign in</h1>
+        <p>Continue to verify this email address for Alvand.</p>
+        <Form method="post">
+          <input type="hidden" name="token" value={initialResult.token} />
+          <button type="submit">Verify email</button>
+        </Form>
+      </main>
+    );
+  }
+
+  const result = submittedResult ?? initialResult;
 
   return (
     <main
@@ -28,8 +60,10 @@ export default function VerifyMagicLink() {
             ? "This Shopify user is already linked to a different app account. Contact support if you need to recover access."
             : "The sign-in link is missing, expired, or has already been used."}
       </p>
-      {result.ok && (
-        <Link to={`/app?shop=${encodeURIComponent(result.shopDomain)}`}>
+      {submittedResult?.ok && (
+        <Link
+          to={`/app?shop=${encodeURIComponent(submittedResult.shopDomain)}`}
+        >
           Continue to the app
         </Link>
       )}

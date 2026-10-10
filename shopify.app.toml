@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "1a3d39d436d910b6045749dd4854df9f"
-application_url = "https://shopify.dev/apps/default-app-home"
+application_url = "https://alvand.796x64n7r6y9a.ca-central-1.cs.amazonlightsail.com"
 embedded = true
 name = "Alvand"
 
@@ -25,8 +25,7 @@ api_version = "2026-10"
   compliance_topics = [ "customers/data_request", "customers/redact", "shop/redact" ]
 
 [auth]
-redirect_urls = [ "https://shopify.dev/apps/default-app-home/api/auth" ]
+redirect_urls = [ "https://alvand.796x64n7r6y9a.ca-central-1.cs.amazonlightsail.com/api/auth" ]
 
 [build]
-include_config_on_deploy = true
 automatically_update_urls_on_dev = true

@@ -90,6 +90,21 @@ export async function requestMagicLink(
   return process.env.NODE_ENV === "production" ? null : verifyUrl.toString();
 }
 
+export async function inspectMagicLink(token: string) {
+  if (!token) return { ok: false as const, reason: "missing" as const };
+
+  const magicLink = await prisma.magicLink.findUnique({
+    where: { tokenHash: hashMagicToken(token) },
+    select: { consumedAt: true, expiresAt: true },
+  });
+
+  if (!magicLink || !isMagicLinkUsable(magicLink)) {
+    return { ok: false as const, reason: "expired" as const };
+  }
+
+  return { ok: true as const };
+}
+
 export async function consumeMagicLink(token: string) {
   if (!token) return { ok: false as const, reason: "missing" as const };
 
