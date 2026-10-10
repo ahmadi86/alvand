@@ -451,7 +451,9 @@ releases a Shopify app version; it does not upload the Docker image.
 4. Open Alvand inside Shopify Admin.
 5. Request a magic link using the SES-verified address while SES is sandboxed.
 6. Open the link and press **Verify email**.
-7. Create a workspace and attach the store.
+7. Return to Shopify Admin, reopen Alvand, create a workspace, and attach the
+   store. Do not navigate directly to the hosted `/app` URL because embedded
+   authentication requires the Shopify Admin context.
 8. Confirm **Hello, world!** and the expected product count.
 9. Add products in active, draft, archived, and unlisted states and confirm
    they are all counted.

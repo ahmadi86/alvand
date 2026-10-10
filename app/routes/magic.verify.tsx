@@ -1,5 +1,5 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { Form, Link, useActionData, useLoaderData } from "react-router";
+import { Form, useActionData, useLoaderData } from "react-router";
 
 import {
   consumeMagicLink,
@@ -61,11 +61,13 @@ export default function VerifyMagicLink() {
             : "The sign-in link is missing, expired, or has already been used."}
       </p>
       {submittedResult?.ok && (
-        <Link
-          to={`/app?shop=${encodeURIComponent(submittedResult.shopDomain)}`}
+        <a
+          href={`https://admin.shopify.com/store/${encodeURIComponent(
+            submittedResult.shopDomain.replace(/\.myshopify\.com$/, ""),
+          )}/apps`}
         >
-          Continue to the app
-        </Link>
+          Return to Shopify Admin
+        </a>
       )}
     </main>
   );
