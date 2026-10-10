@@ -2,7 +2,7 @@ import { useLoaderData } from "react-router";
 
 import { PublicPage } from "../components/PublicPage";
 
-export const meta = () => [{ title: "Support | Hello Product Count" }];
+export const meta = () => [{ title: "Support | Alvand" }];
 export const loader = () => ({
   supportEmail: process.env.SUPPORT_EMAIL ?? null,
 });

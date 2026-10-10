@@ -19,7 +19,7 @@ export default function App() {
   return (
     <div className={styles.index}>
       <div className={styles.content}>
-        <h1 className={styles.heading}>Hello Product Count</h1>
+        <h1 className={styles.heading}>Alvand</h1>
         <p className={styles.text}>
           See a live product total for one Shopify store or all of your
           connected stores.

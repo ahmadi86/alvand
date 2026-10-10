@@ -1,5 +1,5 @@
 export const loader = () =>
   Response.json(
-    { status: "ok", service: "hello-product-count" },
+    { status: "ok", service: "alvand" },
     { headers: { "Cache-Control": "no-store" } },
   );

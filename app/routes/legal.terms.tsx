@@ -1,12 +1,12 @@
 import { PublicPage } from "../components/PublicPage";
 
-export const meta = () => [{ title: "Terms | Hello Product Count" }];
+export const meta = () => [{ title: "Terms | Alvand" }];
 
 export default function Terms() {
   return (
     <PublicPage title="Terms of service">
       <p>
-        Hello Product Count is a free informational service that displays live
+        Alvand is a free informational service that displays live
         totals returned by Shopify. The service is provided without guarantees
         of uninterrupted availability, and merchants remain responsible for
         decisions based on store data.

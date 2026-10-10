@@ -76,7 +76,7 @@ export default function ManageStores() {
       </s-section>
       <s-section heading="Disconnect a store">
         <s-paragraph>
-          Uninstall Hello Product Count from that store in Shopify Admin under
+          Uninstall Alvand from that store in Shopify Admin under
           Settings → Apps and sales channels. Its connection will be marked
           disconnected automatically without affecting the other stores in the
           workspace.

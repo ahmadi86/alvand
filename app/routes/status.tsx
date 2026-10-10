@@ -3,7 +3,7 @@ import { useLoaderData } from "react-router";
 import { PublicPage } from "../components/PublicPage";
 import prisma from "../db.server";
 
-export const meta = () => [{ title: "Status | Hello Product Count" }];
+export const meta = () => [{ title: "Status | Alvand" }];
 
 export const loader = async () => {
   try {

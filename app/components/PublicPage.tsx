@@ -22,7 +22,7 @@ export function PublicPage({
       {children}
       <hr style={{ border: 0, borderTop: "1px solid #ddd", marginTop: 40 }} />
       <p>
-        <a href="/">Hello Product Count</a>
+        <a href="/">Alvand</a>
       </p>
     </main>
   );

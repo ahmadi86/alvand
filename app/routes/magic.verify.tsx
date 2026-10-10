@@ -23,7 +23,7 @@ export default function VerifyMagicLink() {
       <h1>{result.ok ? "Email verified" : "This link cannot be used"}</h1>
       <p>
         {result.ok
-          ? "Return to Shopify Admin and reopen Hello Product Count to continue."
+          ? "Return to Shopify Admin and reopen Alvand to continue."
           : result.reason === "conflict"
             ? "This Shopify user is already linked to a different app account. Contact support if you need to recover access."
             : "The sign-in link is missing, expired, or has already been used."}

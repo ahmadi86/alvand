@@ -7,7 +7,7 @@ jobs:
     name: Node ${{ matrix.node }}
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/hello_product_count
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/alvand
     strategy:
       matrix:
         node: [22, 24]

@@ -2,18 +2,18 @@ services:
   postgres:
     image: postgres:17-alpine
     environment:
-      POSTGRES_DB: hello_product_count
+      POSTGRES_DB: alvand
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
     volumes:
-      - hello_product_count_postgres:/var/lib/postgresql/data
+      - alvand_postgres:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d hello_product_count"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d alvand"]
       interval: 5s
       timeout: 5s
       retries: 10
 
 volumes:
-  hello_product_count_postgres:
+  alvand_postgres:

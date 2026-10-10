@@ -1,12 +1,12 @@
 import { PublicPage } from "../components/PublicPage";
 
-export const meta = () => [{ title: "Privacy | Hello Product Count" }];
+export const meta = () => [{ title: "Privacy | Alvand" }];
 
 export default function Privacy() {
   return (
     <PublicPage title="Privacy policy">
       <p>
-        Hello Product Count stores the merchant email used to verify an app
+        Alvand stores the merchant email used to verify an app
         account, Shopify store identifiers, workspace membership, installation
         state, and authentication sessions needed to provide the service.
       </p>

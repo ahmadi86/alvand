@@ -1,4 +1,4 @@
-# Hello Product Count
+# Alvand
 
 Embedded public Shopify app that says **Hello, world!** and displays a live
 product total for one store or an owner-controlled multi-store workspace. It

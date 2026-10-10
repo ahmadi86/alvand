@@ -17,8 +17,8 @@ export async function sendMagicLinkEmail(email: string, magicLink: string) {
   await transport.sendMail({
     from,
     to: email,
-    subject: "Sign in to Hello Product Count",
+    subject: "Sign in to Alvand",
     text: `Use this one-time link within 15 minutes to sign in: ${magicLink}`,
-    html: `<p>Use this one-time link within 15 minutes to sign in:</p><p><a href="${magicLink}">Sign in to Hello Product Count</a></p>`,
+    html: `<p>Use this one-time link within 15 minutes to sign in:</p><p><a href="${magicLink}">Sign in to Alvand</a></p>`,
   });
 }
