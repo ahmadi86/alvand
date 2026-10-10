@@ -1,3 +1,55 @@
+# Hello Product Count
+
+Embedded public Shopify app that says **Hello, world!** and displays a live
+product total for one store or an owner-controlled multi-store workspace. It
+requests only `read_products` and does not store product, customer, or order
+records.
+
+## Development
+
+Requirements: Node.js 22.12+, Docker, PostgreSQL, and the latest Shopify CLI.
+
+1. Copy `.env.example` to `.env` and add Shopify app credentials.
+2. Run `docker compose up -d postgres`.
+3. Run `npm install`, `npm run setup`, and `npm run dev`.
+
+Useful checks are `npm test`, `npm run typecheck`, `npm run lint`,
+`npm run build`, and `shopify app config validate --json`.
+
+Production requires `SHOPIFY_API_KEY`, `SHOPIFY_API_SECRET`,
+`SHOPIFY_APP_URL`, `DATABASE_URL`, `SMTP_URL`, `EMAIL_FROM`, and
+`SUPPORT_EMAIL`. Use `SHOPIFY_APP_INSTALL_URL` for the public listing/install
+link. Replace the starter privacy policy, terms, support address, and status
+page with operator-approved production content before App Store submission.
+
+## Product counting
+
+The app calls `productsCount(limit: null) { count precision }` using Shopify
+Admin GraphQL API `2026-10`. The null limit avoids the default 10,000 ceiling.
+Counts are fetched live with bounded concurrency; failed stores are clearly
+reported as a partial aggregate.
+
+## Multi-store flow
+
+Each store authorizes the public app separately. A Shopify user verifies an
+email, creates or selects a workspace, and attaches the current installation.
+Opening the app from a connected store can query the other workspace stores
+through their own expiring offline tokens. A store is never silently moved
+between workspaces.
+
+## Launch checklist
+
+- Use separate development and production Shopify app records.
+- Run migrations before starting the production container.
+- Test linking, isolation, scope changes, uninstall, and redaction with two
+  development stores.
+- Configure HTTPS, database backups, monitoring, and secret storage.
+- Revisit the pinned Shopify API version every quarter.
+
+## Architecture decision record
+
+The original distribution decision follows.
+
 # Shopify App Distribution and Multi-Store Architecture
 
 ## Decision
@@ -8,10 +60,10 @@ Single-store and multi-store customers use the same app and codebase. Each Shopi
 
 ## Why Public Distribution
 
-| Distribution method | Supported audience | Fit for this product |
-| --- | --- | --- |
-| Public | Multiple independent merchants, including merchants operating multiple stores | Recommended |
-| Custom | One store, or multiple stores belonging to the same Shopify Plus organization | Suitable for a specific client, but limits broader distribution |
+| Distribution method | Supported audience                                                            | Fit for this product                                            |
+| ------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| Public              | Multiple independent merchants, including merchants operating multiple stores | Recommended                                                     |
+| Custom              | One store, or multiple stores belonging to the same Shopify Plus organization | Suitable for a specific client, but limits broader distribution |
 
 Customers do not need Shopify Plus merely to connect several separately authorized stores to a public app. Plus restrictions apply to multi-store installation through custom distribution.
 
@@ -21,17 +73,17 @@ Shopify states that the distribution method cannot be changed after selection. C
 
 Use the following model in the backend. These are application entities, separate from Shopify's organization model.
 
-| Entity | Purpose |
-| --- | --- |
-| Workspace | Represents a customer business or client account |
+| Entity           | Purpose                                                                 |
+| ---------------- | ----------------------------------------------------------------------- |
+| Workspace        | Represents a customer business or client account                        |
 | Store connection | Records a Shopify store's installation, granted scopes, and credentials |
-| User | Represents a person using the app |
-| Membership | Defines a user's access to a workspace and its stores |
+| User             | Represents a person using the app                                       |
+| Membership       | Defines a user's access to a workspace and its stores                   |
 
-| Customer | Workspace arrangement | Connected stores |
-| --- | --- | --- |
-| Single-store owner | One workspace | One store |
-| Business with multiple stores | One workspace | Several stores |
+| Customer                          | Workspace arrangement      | Connected stores              |
+| --------------------------------- | -------------------------- | ----------------------------- |
+| Single-store owner                | One workspace              | One store                     |
+| Business with multiple stores     | One workspace              | Several stores                |
 | Agency managing different clients | Separate client workspaces | One or more stores per client |
 
 Store credentials and data remain scoped to the relevant store and workspace. A combined view aggregates only stores the user is authorized to access.
